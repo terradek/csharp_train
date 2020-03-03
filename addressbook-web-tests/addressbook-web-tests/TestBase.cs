@@ -15,6 +15,7 @@ namespace addressbook_web_tests
         protected IWebDriver driver;
         private StringBuilder verificationErrors;
         protected string baseURL;
+        protected LoginHelper loginHelper;
 
         #region Setup
         [SetUp]
@@ -23,6 +24,8 @@ namespace addressbook_web_tests
             driver = new ChromeDriver();
             baseURL = "http://localhost/addressbook";
             verificationErrors = new StringBuilder();
+            loginHelper = new LoginHelper(driver);
+
         }
 
         [TearDown]
@@ -49,11 +52,6 @@ namespace addressbook_web_tests
         protected void DeleteGroup()
         {
             driver.FindElement(By.Name("delete")).Click();
-        }
-
-        protected void Logout()
-        {
-            driver.FindElement(By.LinkText("Logout")).Click();
         }
 
         protected void GoToGroups()
@@ -87,17 +85,6 @@ namespace addressbook_web_tests
         {
             //Returning Home
             driver.FindElement(By.LinkText("home")).Click();
-        }
-
-        protected void Login(AccountData account)
-        {
-            driver.FindElement(By.Name("pass")).Click();
-            driver.FindElement(By.Name("pass")).Clear();
-            driver.FindElement(By.Name("pass")).SendKeys(account.Password);
-            driver.FindElement(By.Name("user")).Click();
-            driver.FindElement(By.Name("user")).Clear();
-            driver.FindElement(By.Name("user")).SendKeys(account.User);
-            driver.FindElement(By.XPath("//input[@value='Login']")).Click();
         }
 
         protected void GoToBaseUrl()

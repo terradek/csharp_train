@@ -17,19 +17,19 @@ namespace addressbook_web_tests
         public void GroupCreationTest()
         {
             GoToBaseUrl();
-            Login(new AccountData("admin", "secret"));
+            loginHelper.Login(new AccountData("admin", "secret"));
             GoToGroups();
             CreateNewGroup();
             FillGroupData(new GroupsData("dcvh", "cvbn", "cvbn"));
             GoToHome();
-            Logout();
+            loginHelper.Logout();
         }
 
         [Test]
         public void GroupDelete()
         {
             GoToBaseUrl();
-            Login(new AccountData("admin", "secret"));
+            loginHelper.Login(new AccountData("admin", "secret"));
             GoToGroups();
             SelectGroup(1);
             DeleteGroup();

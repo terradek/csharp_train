@@ -17,10 +17,10 @@ namespace addressbook_web_tests
         public void ContactCreationTest()
         {
             GoToBaseUrl();
-            Login(new AccountData("admin", "secret"));
+            loginHelper.Login(new AccountData("admin", "secret"));
             FillContactData(new ContactsData("dsfgh", "dfghdf", "dfghdgf"));
             GoToHome();
-            Logout();
+            loginHelper.Logout();
         }
 
     }
