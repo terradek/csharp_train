@@ -50,6 +50,27 @@ namespace addressbook_web_tests
             Logout();
         }
 
+        [Test]
+        public void GroupDelete()
+        {
+            GoToBaseUrl();
+            Login(new AccountData("admin", "secret"));
+            GoToGroups();
+            SelectGroup(1);
+            DeleteGroup();
+            GoToHome();
+        }
+
+        private void SelectGroup(int i)
+        {
+            driver.FindElement(By.XPath($"(//input[@name='selected[]'])[{i}]")).Click();
+        }
+
+        private void DeleteGroup()
+        {
+            driver.FindElement(By.Name("delete")).Click();
+        }
+
         private void Logout()
         {
             driver.FindElement(By.LinkText("Logout")).Click();
