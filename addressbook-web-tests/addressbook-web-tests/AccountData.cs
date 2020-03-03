@@ -19,10 +19,10 @@ namespace addressbook_web_tests
             get { return user; }
             set { user = value; }
         }
-        public string Password 
+        public string Password
         {
             get { return password; }
-            set { password = value; } 
+            set { password = value; }
         }
     }
 }

@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace addressbook_web_tests
 {
-    class GroupData
+    class GroupsData
     {
         string name, header, footer;
-        public GroupData(string name, string header, string footer)
+        public GroupsData(string name, string header, string footer)
         {
             this.name = name;
             this.header = header;

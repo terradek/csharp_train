@@ -10,7 +10,7 @@ using OpenQA.Selenium.Support.UI;
 namespace addressbook_web_tests
 {
     [TestFixture]
-    public class ContactsCreationTests
+    public class ContactsTests
     {
         private IWebDriver driver;
         private StringBuilder verificationErrors;
@@ -40,20 +40,26 @@ namespace addressbook_web_tests
         }
 
         [Test]
-        public void ContactsCreationTest()
+        public void ContactCreationTest()
         {
-            OpenHomePage();
+            GoToBaseUrl();
             Login(new AccountData("admin", "secret"));
-            FillingContactsData(new ContactsData("dsfgh", "dfghdf", "dfghdgf"));
-            ReturnHome();
+            FillContactData(new ContactsData("dsfgh", "dfghdf", "dfghdgf"));
+            GoToHome();
+            Logout();
         }
 
-        private void ReturnHome()
+        private void Logout()
+        {
+            driver.FindElement(By.LinkText("Logout")).Click();
+        }
+
+        private void GoToHome()
         {
             driver.FindElement(By.LinkText("home")).Click();
         }
 
-        private void FillingContactsData(ContactsData contact)
+        private void FillContactData(ContactsData contact)
         {
             driver.FindElement(By.LinkText("add new")).Click();
             driver.FindElement(By.Name("firstname")).Click();
@@ -125,7 +131,7 @@ namespace addressbook_web_tests
             driver.FindElement(By.Name("address2")).SendKeys("dfghgfdh");
             driver.FindElement(By.Name("phone2")).Click();
             driver.FindElement(By.Name("phone2")).Clear();
-            driver.FindElement(By.Name("phone2")).SendKeys("dfghgfd");
+            driver.FindElement(By.Name("phone2")).SendKeys("dfghgfd"); 
             driver.FindElement(By.Name("notes")).Click();
             driver.FindElement(By.Name("notes")).Clear();
             driver.FindElement(By.Name("notes")).SendKeys("dfghgfdhfdg");*/
@@ -144,57 +150,9 @@ namespace addressbook_web_tests
             driver.FindElement(By.XPath("//input[@value='Login']")).Click();
         }
 
-        private void OpenHomePage()
+        private void GoToBaseUrl()
         {
             driver.Navigate().GoToUrl(baseURL);
-        }
-
-        private bool IsElementPresent(By by)
-        {
-            try
-            {
-                driver.FindElement(by);
-                return true;
-            }
-            catch (NoSuchElementException)
-            {
-                return false;
-            }
-        }
-
-        private bool IsAlertPresent()
-        {
-            try
-            {
-                driver.SwitchTo().Alert();
-                return true;
-            }
-            catch (NoAlertPresentException)
-            {
-                return false;
-            }
-        }
-
-        private string CloseAlertAndGetItsText()
-        {
-            try
-            {
-                IAlert alert = driver.SwitchTo().Alert();
-                string alertText = alert.Text;
-                if (acceptNextAlert)
-                {
-                    alert.Accept();
-                }
-                else
-                {
-                    alert.Dismiss();
-                }
-                return alertText;
-            }
-            finally
-            {
-                acceptNextAlert = true;
-            }
         }
     }
 }

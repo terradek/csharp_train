@@ -10,12 +10,11 @@ using OpenQA.Selenium.Support.UI;
 namespace addressbook_web_tests
 {
     [TestFixture]
-    public class GroupCreationTests
+    public class GroupsTests
     {
         private IWebDriver driver;
         private StringBuilder verificationErrors;
         private string baseURL;
-        private bool acceptNextAlert = true;
 
         [SetUp]
         public void SetupTest()
@@ -42,11 +41,12 @@ namespace addressbook_web_tests
         [Test]
         public void GroupCreationTest()
         {
-            OpenHomePage();
+            GoToBaseUrl();
             Login(new AccountData("admin", "secret"));
-            GoingToGroups();
-            GroupEnteringAndFillingUp(new GroupData("dcvh", "cvbn", "cvbn"));
-            ReturnHome();
+            GoToGroups();
+            CreateNewGroup();
+            FillGroupData(new GroupsData("dcvh", "cvbn", "cvbn"));
+            GoToHome();
             Logout();
         }
 
@@ -55,15 +55,13 @@ namespace addressbook_web_tests
             driver.FindElement(By.LinkText("Logout")).Click();
         }
 
-        private void GoingToGroups()
+        private void GoToGroups()
         {
             driver.FindElement(By.LinkText("groups")).Click();
         }
 
-        private void GroupEnteringAndFillingUp(GroupData group)
+        private void FillGroupData(GroupsData group)
         {
-            //Creating a new group
-            driver.FindElement(By.Name("new")).Click();
             //Filling up a form
             driver.FindElement(By.Name("group_name")).Click();
             driver.FindElement(By.Name("group_name")).Clear();
@@ -78,7 +76,13 @@ namespace addressbook_web_tests
             driver.FindElement(By.Name("submit")).Click();
         }
 
-        private void ReturnHome()
+        private void CreateNewGroup()
+        {
+            //Creating a new group
+            driver.FindElement(By.Name("new")).Click();
+        }
+
+        private void GoToHome()
         {
             //Returning Home
             driver.FindElement(By.LinkText("home")).Click();
@@ -95,57 +99,11 @@ namespace addressbook_web_tests
             driver.FindElement(By.XPath("//input[@value='Login']")).Click();
         }
 
-        private void OpenHomePage()
+        private void GoToBaseUrl()
         {
             driver.Navigate().GoToUrl(baseURL);
         }
 
-        private bool IsElementPresent(By by)
-        {
-            try
-            {
-                driver.FindElement(by);
-                return true;
-            }
-            catch (NoSuchElementException)
-            {
-                return false;
-            }
-        }
 
-        private bool IsAlertPresent()
-        {
-            try
-            {
-                driver.SwitchTo().Alert();
-                return true;
-            }
-            catch (NoAlertPresentException)
-            {
-                return false;
-            }
-        }
-
-        private string CloseAlertAndGetItsText()
-        {
-            try
-            {
-                IAlert alert = driver.SwitchTo().Alert();
-                string alertText = alert.Text;
-                if (acceptNextAlert)
-                {
-                    alert.Accept();
-                }
-                else
-                {
-                    alert.Dismiss();
-                }
-                return alertText;
-            }
-            finally
-            {
-                acceptNextAlert = true;
-            }
-        }
     }
 }
