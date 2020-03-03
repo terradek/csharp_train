@@ -6,29 +6,18 @@ using System.Threading.Tasks;
 
 namespace addressbook_web_tests
 {
-    class GroupsData
+    public class GroupsData
     {
-        string name, header, footer;
+
         public GroupsData(string name, string header, string footer)
         {
-            this.name = name;
-            this.header = header;
-            this.footer = footer;
+            Name = name;
+            Header = header;
+            Footer = footer;
         }
-        public string Name 
-        {
-            get { return name; }
-            set { name = value; }
-        }
-        public string Header
-        {
-            get { return header; }
-            set { header = value; }
-        }
-        public string Footer
-        {
-            get { return footer; }
-            set { name = footer; }
-        }
+        public string Name { get; set; }
+        public string Header { get; set; }
+        public string Footer { get; set; }
+
     }
 }

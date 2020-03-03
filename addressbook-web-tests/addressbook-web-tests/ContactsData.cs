@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace addressbook_web_tests
 {
-    class ContactsData
+    public class ContactsData
     {
-        string firstName,
-            middleName,
-            lastName;
+        //private string
         /*  nickname,
             title,
             company,
@@ -31,27 +29,15 @@ namespace addressbook_web_tests
         //DateTime birthday, anniversary;
         public ContactsData(string firstName, string middleName, string lastName)
         {
-            this.firstName = firstName;
-            this.middleName = middleName;
-            this.lastName = lastName;
+            Firstname = firstName;
+            MiddleName = middleName;
+            LastName = lastName;
         }
-        public string Firstname 
-        { 
-            get { return firstName; }
-            set { firstName = value; } 
-        }
+        public string Firstname { get; set; }
 
-        public string LastName
-        {
-            get { return lastName; }
-            set { lastName = value; }
-        }
+        public string LastName { get; set; }
 
-        public string MiddleName
-        {
-            get { return middleName; }
-            set { middleName = value; }
-        }
+        public string MiddleName { get; set; }
     }
 
 
