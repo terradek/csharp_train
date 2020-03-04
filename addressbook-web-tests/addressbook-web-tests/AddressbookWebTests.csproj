@@ -16,7 +16,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>addressbook_web_tests</RootNamespace>
-    <AssemblyName>addressbook-web-tests</AssemblyName>
+    <AssemblyName>AddressbookWebTests</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -103,6 +103,7 @@
     <Compile Include="ContactsTests.cs" />
     <Compile Include="GroupsData.cs" />
     <Compile Include="LoginHelper.cs" />
+    <Compile Include="NavigatorHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GroupsTests.cs" />
     <Compile Include="TestBase.cs" />

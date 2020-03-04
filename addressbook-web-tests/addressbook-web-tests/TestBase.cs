@@ -14,19 +14,21 @@ namespace AddressbookWebTests
     {
         protected IWebDriver driver;
         private StringBuilder verificationErrors;
-        protected string baseURL;
+        protected string baseUrl;
         protected LoginHelper loginHelper;
         public GroupsHelper groupsHelper;
+        public NavigatorHelper navigatorHelper;
 
         #region Setup
         [SetUp]
         public void SetupTest()
         {
             driver = new ChromeDriver();
-            baseURL = "http://localhost/addressbook";
+            baseUrl = "http://localhost/addressbook";
             verificationErrors = new StringBuilder();
             loginHelper = new LoginHelper(driver);
             groupsHelper = new GroupsHelper(driver);
+            navigatorHelper = new NavigatorHelper(driver, baseUrl);
 
         }
 
@@ -48,23 +50,7 @@ namespace AddressbookWebTests
         #region Methods
         
 
-        protected void GoToGroups()
-        {
-            driver.FindElement(By.LinkText("groups")).Click();
-        }
-
-       
-
-        protected void GoToHome()
-        {
-            //Returning Home
-            driver.FindElement(By.LinkText("home")).Click();
-        }
-
-        protected void GoToBaseUrl()
-        {
-            driver.Navigate().GoToUrl(baseURL);
-        }
+        
 
         protected void FillContactData(ContactsData contact)
         {
