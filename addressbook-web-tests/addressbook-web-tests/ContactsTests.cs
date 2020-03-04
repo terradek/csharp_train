@@ -18,7 +18,7 @@ namespace AddressbookWebTests
         {
             navigatorHelper.GoToBaseUrl();
             loginHelper.Login(new AccountData("admin", "secret"));
-            FillContactData(new ContactsData("dsfgh", "dfghdf", "dfghdgf"));
+            contactsHelper.FillContactData(new ContactsData("dsfgh", "dfghdf", "dfghdgf"));
             navigatorHelper.GoToHome();
             loginHelper.Logout();
         }

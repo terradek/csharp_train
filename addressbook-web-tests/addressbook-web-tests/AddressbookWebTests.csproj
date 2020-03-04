@@ -15,7 +15,7 @@
     <ProjectGuid>{FD7241B6-270C-4D00-8A38-C41F11BD385F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>addressbook_web_tests</RootNamespace>
+    <RootNamespace>AddressbookWebTests</RootNamespace>
     <AssemblyName>AddressbookWebTests</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -98,6 +98,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountData.cs" />
+    <Compile Include="ContactsHelper.cs" />
     <Compile Include="GroupsHelper.cs" />
     <Compile Include="ContactsData.cs" />
     <Compile Include="ContactsTests.cs" />
