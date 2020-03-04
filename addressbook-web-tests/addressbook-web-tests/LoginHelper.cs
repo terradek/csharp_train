@@ -7,7 +7,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 
-namespace addressbook_web_tests
+namespace AddressbookWebTests
 {
     public class LoginHelper
     {

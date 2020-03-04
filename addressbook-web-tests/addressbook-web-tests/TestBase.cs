@@ -8,7 +8,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 
-namespace addressbook_web_tests
+namespace AddressbookWebTests
 {
     public class TestBase
     {
@@ -16,6 +16,7 @@ namespace addressbook_web_tests
         private StringBuilder verificationErrors;
         protected string baseURL;
         protected LoginHelper loginHelper;
+        public GroupsHelper groupsHelper;
 
         #region Setup
         [SetUp]
@@ -25,6 +26,7 @@ namespace addressbook_web_tests
             baseURL = "http://localhost/addressbook";
             verificationErrors = new StringBuilder();
             loginHelper = new LoginHelper(driver);
+            groupsHelper = new GroupsHelper(driver);
 
         }
 
@@ -44,42 +46,14 @@ namespace addressbook_web_tests
         #endregion
         
         #region Methods
-        protected void SelectGroup(int i)
-        {
-            driver.FindElement(By.XPath($"(//input[@name='selected[]'])[{i}]")).Click();
-        }
-
-        protected void DeleteGroup()
-        {
-            driver.FindElement(By.Name("delete")).Click();
-        }
+        
 
         protected void GoToGroups()
         {
             driver.FindElement(By.LinkText("groups")).Click();
         }
 
-        protected void FillGroupData(GroupsData group)
-        {
-            //Filling up a form
-            driver.FindElement(By.Name("group_name")).Click();
-            driver.FindElement(By.Name("group_name")).Clear();
-            driver.FindElement(By.Name("group_name")).SendKeys(group.Name);
-            driver.FindElement(By.Name("group_header")).Click();
-            driver.FindElement(By.Name("group_header")).Clear();
-            driver.FindElement(By.Name("group_header")).SendKeys(group.Header);
-            driver.FindElement(By.Name("group_footer")).Click();
-            driver.FindElement(By.Name("group_footer")).Clear();
-            driver.FindElement(By.Name("group_footer")).SendKeys(group.Footer);
-            //Submitting a form
-            driver.FindElement(By.Name("submit")).Click();
-        }
-
-        protected void CreateNewGroup()
-        {
-            //Creating a new group
-            driver.FindElement(By.Name("new")).Click();
-        }
+       
 
         protected void GoToHome()
         {

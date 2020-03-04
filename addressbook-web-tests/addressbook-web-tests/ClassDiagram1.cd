@@ -1,30 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="addressbook_web_tests.GroupsTests" Collapsed="true">
+  <Class Name="AddressbookWebTests.GroupsTests" Collapsed="true">
     <Position X="0.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAwAIAAAAAAAAAAAAALAAAAIAgIAAAAQAAEAACA=</HashCode>
+      <HashCode>AAAAAAgAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>GroupsTests.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="addressbook_web_tests.ContactsData" Collapsed="true">
+  <Class Name="AddressbookWebTests.ContactsData" Collapsed="true">
     <Position X="5.25" Y="1.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAEAAAABAAAAAAAAQAAAAEAAAAAAAAAAACAAAAAg=</HashCode>
+      <HashCode>AAAAAEAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAg=</HashCode>
       <FileName>ContactsData.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="addressbook_web_tests.ContactsTests" Collapsed="true">
+  <Class Name="AddressbookWebTests.ContactsTests" Collapsed="true">
     <Position X="5.5" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AABAAAQAIAAAAABAAAAAAALAAAAIAAIAAAAQAgAAACA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAA=</HashCode>
       <FileName>ContactsTests.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="addressbook_web_tests.GroupsData" Collapsed="true">
+  <Class Name="AddressbookWebTests.GroupsData" Collapsed="true">
     <Position X="5" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>BAAAAAQAAAAAAAAAAAAAAAQAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>BAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>GroupsData.cs</FileName>
     </TypeIdentifier>
   </Class>

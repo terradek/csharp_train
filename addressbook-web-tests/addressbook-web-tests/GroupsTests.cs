@@ -7,7 +7,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 
-namespace addressbook_web_tests
+namespace AddressbookWebTests
 {
     [TestFixture]
     public class GroupsTests : TestBase
@@ -19,8 +19,8 @@ namespace addressbook_web_tests
             GoToBaseUrl();
             loginHelper.Login(new AccountData("admin", "secret"));
             GoToGroups();
-            CreateNewGroup();
-            FillGroupData(new GroupsData("dcvh", "cvbn", "cvbn"));
+            groupsHelper.CreateNewGroup();
+            groupsHelper.FillGroupData(new GroupsData("dcvh", "cvbn", "cvbn"));
             GoToHome();
             loginHelper.Logout();
         }
@@ -31,8 +31,8 @@ namespace addressbook_web_tests
             GoToBaseUrl();
             loginHelper.Login(new AccountData("admin", "secret"));
             GoToGroups();
-            SelectGroup(1);
-            DeleteGroup();
+            groupsHelper.SelectGroup(1);
+            groupsHelper.DeleteGroup();
             GoToHome();
         }
     }
