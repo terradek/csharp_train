@@ -9,13 +9,11 @@ using OpenQA.Selenium.Support.UI;
 
 namespace AddressbookWebTests
 {
-    public class GroupsHelper
+    public class GroupsHelper : HelperBase
     {
-        private readonly IWebDriver driver;
-
-        public GroupsHelper(IWebDriver driver)
+        public GroupsHelper(IWebDriver driver) 
+            :base(driver)
         {
-            this.driver = driver;
         }
 
         public void SelectGroup(int i)

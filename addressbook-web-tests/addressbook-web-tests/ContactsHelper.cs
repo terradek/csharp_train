@@ -9,13 +9,11 @@ using OpenQA.Selenium.Support.UI;
 
 namespace AddressbookWebTests
 {
-    public class ContactsHelper
+    public class ContactsHelper : HelperBase
     {
-        private readonly IWebDriver driver;
-
-        public ContactsHelper(IWebDriver driver)
+        public ContactsHelper(IWebDriver driver) 
+            :base(driver)
         {
-            this.driver = driver;
         }
         public void FillContactData(ContactsData contact)
         {
