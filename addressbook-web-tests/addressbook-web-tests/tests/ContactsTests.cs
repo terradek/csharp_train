@@ -19,9 +19,43 @@ namespace AddressbookWebTests
             app.Navigator.GoToBaseUrl();
             app.Auth.Login(new AccountData("admin", "secret"));
             app.Contacts.FillContactData(new ContactsData("dsfgh", "dfghdf", "dfghdgf"));
+            app.Contacts.SubmitNewContact();
             app.Navigator.GoToHome();
             app.Auth.Logout();
         }
 
+        [Test]
+        public void ContactEditingTest()
+        {
+            app.Navigator.GoToBaseUrl();
+            app.Auth.Login(new AccountData("admin", "secret"));
+            app.Contacts.EditContact(1);
+            app.Contacts.ModifyContact(new ContactsData("32452", "2542", "25436"));
+            app.Contacts.UpdateContact(); //click Update button
+            app.Navigator.GoToHome();
+            app.Auth.Logout();
+        }
+
+        [Test]
+        public void ContactDeletionTest()
+        {
+            app.Navigator.GoToBaseUrl();
+            app.Auth.Login(new AccountData("admin", "secret"));
+            app.Contacts.EditContact(1);
+            app.Contacts.DeleteContact(); //click Update button
+            app.Navigator.GoToHome();
+            app.Auth.Logout();
+        }
+
+/*        [Test]
+        public void ContactAddingToGroupTest()
+        {
+            app.Navigator.GoToBaseUrl();
+            app.Auth.Login(new AccountData("admin", "secret"));
+            app.Contacts.EditContact(1);
+            app.Contacts.DeleteContact(); //click Update button
+            app.Navigator.GoToHome();
+            app.Auth.Logout();
+        }*/
     }
 }

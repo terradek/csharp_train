@@ -24,7 +24,6 @@ namespace AddressbookWebTests
             driver.FindElement(By.Name("middlename")).Click();
             driver.FindElement(By.Name("middlename")).Clear();
             driver.FindElement(By.Name("middlename")).SendKeys(contact.MiddleName);
-            driver.FindElement(By.Name("theform")).Click();
             driver.FindElement(By.Name("lastname")).Click();
             driver.FindElement(By.Name("lastname")).Clear();
             driver.FindElement(By.Name("lastname")).SendKeys(contact.LastName);
@@ -91,7 +90,42 @@ namespace AddressbookWebTests
             driver.FindElement(By.Name("notes")).Click();
             driver.FindElement(By.Name("notes")).Clear();
             driver.FindElement(By.Name("notes")).SendKeys("dfghgfdhfdg");*/
+        }
+
+
+
+        internal void ModifyContact(ContactsData contact)
+        {
+            driver.FindElement(By.Name("firstname")).Click();
+            driver.FindElement(By.Name("firstname")).Clear();
+            driver.FindElement(By.Name("firstname")).SendKeys(contact.Firstname);
+            driver.FindElement(By.Name("middlename")).Click();
+            driver.FindElement(By.Name("middlename")).Clear();
+            driver.FindElement(By.Name("middlename")).SendKeys(contact.MiddleName);
+            driver.FindElement(By.Name("lastname")).Click();
+            driver.FindElement(By.Name("lastname")).Clear();
+            driver.FindElement(By.Name("lastname")).SendKeys(contact.LastName);
+        }
+
+        public void SubmitNewContact()
+        {
             driver.FindElement(By.XPath("//input[@name='id']/preceding-sibling::input[@type='submit']")).Click();
+        }
+        public void UpdateContact()
+        {
+            driver.FindElement(By.XPath("//input[@value='Update']")).Click();
+        }
+        public void SelectContact(int i)
+        {
+            driver.FindElement(By.XPath($"(//input[@name='selected[]'])[{i}]")).Click();
+        }
+        public void EditContact(int i)
+        {
+            driver.FindElement(By.XPath($"//img[@title='Edit'][{i}]")).Click();
+        }
+        public void DeleteContact()
+        {
+            driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
         }
     }
 }

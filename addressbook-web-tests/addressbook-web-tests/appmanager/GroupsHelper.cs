@@ -37,8 +37,24 @@ namespace AddressbookWebTests
             driver.FindElement(By.Name("group_footer")).Click();
             driver.FindElement(By.Name("group_footer")).Clear();
             driver.FindElement(By.Name("group_footer")).SendKeys(group.Footer);
+            
+        }
+
+        public void SubmitNewGroup()
+        {
             //Submitting a form
             driver.FindElement(By.Name("submit")).Click();
+        }
+
+        public void UpdateGroup()
+        {
+            //Submitting a form
+            driver.FindElement(By.Name("update")).Click();
+        }
+
+        internal void ModifyGroup()
+        {
+            driver.FindElement(By.Name("edit")).Click();
         }
 
         public void CreateNewGroup()

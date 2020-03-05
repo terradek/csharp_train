@@ -21,18 +21,32 @@ namespace AddressbookWebTests
             app.Navigator.GoToGroups();
             app.Groups.CreateNewGroup();
             app.Groups.FillGroupData(new GroupsData("dcvh", "cvbn", "cvbn"));
+            app.Groups.SubmitNewGroup();
             app.Navigator.GoToHome();
             app.Auth.Logout();
         }
 
         [Test]
-        public void GroupDelete()
+        public void GroupDeletionTest()
         {
             app.Navigator.GoToBaseUrl();
             app.Auth.Login(new AccountData("admin", "secret"));
             app.Navigator.GoToGroups();
             app.Groups.SelectGroup(1);
             app.Groups.DeleteGroup();
+            app.Navigator.GoToHome();
+        }
+
+        [Test]
+        public void GroupEditingTest()
+        {
+            app.Navigator.GoToBaseUrl();
+            app.Auth.Login(new AccountData("admin", "secret"));
+            app.Navigator.GoToGroups();
+            app.Groups.SelectGroup(1);
+            app.Groups.ModifyGroup();
+            app.Groups.FillGroupData(new GroupsData("sdgf", "sfdgds", "cvsdfgbn"));
+            app.Groups.UpdateGroup();
             app.Navigator.GoToHome();
         }
     }
