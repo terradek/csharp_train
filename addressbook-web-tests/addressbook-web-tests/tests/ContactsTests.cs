@@ -16,11 +16,11 @@ namespace AddressbookWebTests
         [Test]
         public void ContactCreationTest()
         {
-            navigatorHelper.GoToBaseUrl();
-            loginHelper.Login(new AccountData("admin", "secret"));
-            contactsHelper.FillContactData(new ContactsData("dsfgh", "dfghdf", "dfghdgf"));
-            navigatorHelper.GoToHome();
-            loginHelper.Logout();
+            app.Navigator.GoToBaseUrl();
+            app.Auth.Login(new AccountData("admin", "secret"));
+            app.Contacts.FillContactData(new ContactsData("dsfgh", "dfghdf", "dfghdgf"));
+            app.Navigator.GoToHome();
+            app.Auth.Logout();
         }
 
     }

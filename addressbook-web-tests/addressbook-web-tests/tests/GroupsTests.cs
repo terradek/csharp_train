@@ -16,24 +16,24 @@ namespace AddressbookWebTests
         [Test]
         public void GroupCreationTest()
         {
-            navigatorHelper.GoToBaseUrl();
-            loginHelper.Login(new AccountData("admin", "secret"));
-            navigatorHelper.GoToGroups();
-            groupsHelper.CreateNewGroup();
-            groupsHelper.FillGroupData(new GroupsData("dcvh", "cvbn", "cvbn"));
-            navigatorHelper.GoToHome();
-            loginHelper.Logout();
+            app.Navigator.GoToBaseUrl();
+            app.Auth.Login(new AccountData("admin", "secret"));
+            app.Navigator.GoToGroups();
+            app.Groups.CreateNewGroup();
+            app.Groups.FillGroupData(new GroupsData("dcvh", "cvbn", "cvbn"));
+            app.Navigator.GoToHome();
+            app.Auth.Logout();
         }
 
         [Test]
         public void GroupDelete()
         {
-            navigatorHelper.GoToBaseUrl();
-            loginHelper.Login(new AccountData("admin", "secret"));
-            navigatorHelper.GoToGroups();
-            groupsHelper.SelectGroup(1);
-            groupsHelper.DeleteGroup();
-            navigatorHelper.GoToHome();
+            app.Navigator.GoToBaseUrl();
+            app.Auth.Login(new AccountData("admin", "secret"));
+            app.Navigator.GoToGroups();
+            app.Groups.SelectGroup(1);
+            app.Groups.DeleteGroup();
+            app.Navigator.GoToHome();
         }
     }
 }

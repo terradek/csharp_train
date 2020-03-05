@@ -97,6 +97,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="appmanager\ApplicationManager.cs" />
     <Compile Include="model\AccountData.cs" />
     <Compile Include="appmanager\HelperBase.cs" />
     <Compile Include="appmanager\ContactsHelper.cs" />
