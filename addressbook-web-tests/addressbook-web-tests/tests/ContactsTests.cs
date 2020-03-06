@@ -47,15 +47,27 @@ namespace AddressbookWebTests
             app.Auth.Logout();
         }
 
-/*        [Test]
-        public void ContactAddingToGroupTest()
+        [Test]
+        public void ContactDeletionFromHomePageTest()
         {
             app.Navigator.GoToBaseUrl();
             app.Auth.Login(new AccountData("admin", "secret"));
-            app.Contacts.EditContact(1);
-            app.Contacts.DeleteContact(); //click Update button
+            app.Contacts.SelectContact(1);
+            app.Contacts.DeleteContact(); //click Delete button
+            app.Driver.SwitchTo().Alert().Accept();
             app.Navigator.GoToHome();
             app.Auth.Logout();
-        }*/
+        }
+
+        /*        [Test]
+                public void ContactAddingToGroupTest()
+                {
+                    app.Navigator.GoToBaseUrl();
+                    app.Auth.Login(new AccountData("admin", "secret"));
+                    app.Contacts.EditContact(1);
+                    app.Contacts.DeleteContact(); //click Update button
+                    app.Navigator.GoToHome();
+                    app.Auth.Logout();
+                }*/
     }
 }

@@ -35,6 +35,7 @@ namespace AddressbookWebTests
         public GroupsHelper Groups { get { return groupsHelper; } }
         public NavigatorHelper Navigator { get { return navigatorHelper; } }
         public ContactsHelper Contacts { get { return contactsHelper; } }
+        public IWebDriver Driver { get { return driver; } }
 
         public void Stop()
         {
