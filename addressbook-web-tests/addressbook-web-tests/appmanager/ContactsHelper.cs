@@ -18,12 +18,17 @@ namespace AddressbookWebTests
         public void FillContactData(ContactsData contact)
         {
             driver.FindElement(By.LinkText("add new")).Click();
-            driver.FindElement(By.Name("firstname")).Clear();
-            driver.FindElement(By.Name("firstname")).SendKeys(contact.Firstname);
-            driver.FindElement(By.Name("middlename")).Clear();
-            driver.FindElement(By.Name("middlename")).SendKeys(contact.MiddleName);
-            driver.FindElement(By.Name("lastname")).Clear();
-            driver.FindElement(By.Name("lastname")).SendKeys(contact.LastName);
+            ClearAndTypeField(By.Name("firstname"), contact.Firstname);
+            ModifyContact(contact);
+        }
+
+
+
+        internal void ModifyContact(ContactsData contact)
+        {
+            ClearAndTypeField(By.Name("firstname"), contact.Firstname);
+            ClearAndTypeField(By.Name("middlename"), contact.MiddleName);
+            ClearAndTypeField(By.Name("lastname"), contact.LastName);
             /*
             driver.FindElement(By.Name("nickname")).Clear();
             driver.FindElement(By.Name("nickname")).SendKeys("dfghfd");
@@ -71,18 +76,6 @@ namespace AddressbookWebTests
             driver.FindElement(By.Name("phone2")).SendKeys("dfghgfd"); 
             driver.FindElement(By.Name("notes")).Clear();
             driver.FindElement(By.Name("notes")).SendKeys("dfghgfdhfdg");*/
-        }
-
-
-
-        internal void ModifyContact(ContactsData contact)
-        {
-            driver.FindElement(By.Name("firstname")).Clear();
-            driver.FindElement(By.Name("firstname")).SendKeys(contact.Firstname);
-            driver.FindElement(By.Name("middlename")).Clear();
-            driver.FindElement(By.Name("middlename")).SendKeys(contact.MiddleName);
-            driver.FindElement(By.Name("lastname")).Clear();
-            driver.FindElement(By.Name("lastname")).SendKeys(contact.LastName);
         }
 
         public void SubmitNewContact()

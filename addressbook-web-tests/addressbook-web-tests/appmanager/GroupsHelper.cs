@@ -27,14 +27,9 @@ namespace AddressbookWebTests
         }
         public void FillGroupData(GroupsData group)
         {
-            //Filling up a form
-            driver.FindElement(By.Name("group_name")).Clear();
-            driver.FindElement(By.Name("group_name")).SendKeys(group.Name);
-            driver.FindElement(By.Name("group_header")).Clear();
-            driver.FindElement(By.Name("group_header")).SendKeys(group.Header);
-            driver.FindElement(By.Name("group_footer")).Clear();
-            driver.FindElement(By.Name("group_footer")).SendKeys(group.Footer);
-            
+            ClearAndTypeField(By.Name("group_name"), group.Name);
+            ClearAndTypeField(By.Name("group_header"), group.Header);
+            ClearAndTypeField(By.Name("group_footer"), group.Footer);
         }
 
         public void SubmitNewGroup()
