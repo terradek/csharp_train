@@ -1,4 +1,7 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.UI;
+using System;
 
 namespace AddressbookWebTests
 {
@@ -19,5 +22,26 @@ namespace AddressbookWebTests
                 driver.FindElement(by).SendKeys(text); 
             }
         }
+
+        public bool IsContactOrGroupPresent()
+        {
+            //var random = Guid.NewGuid().ToString();
+            return IsElementPresent(By.XPath("//input[@type='checkbox' and @name='selected[]']"))
+                && (driver.Url == "http://localhost/addressbook/" || driver.Url == "http://localhost/addressbook/group.php");
+        }
+
+        public bool IsElementPresent(By by)
+        {
+            try
+            {
+                new WebDriverWait(driver, TimeSpan.FromSeconds(2)).Until(driver => driver.FindElement(by));
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
     }
 }

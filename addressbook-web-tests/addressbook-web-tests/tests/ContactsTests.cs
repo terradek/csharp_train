@@ -29,6 +29,11 @@ namespace AddressbookWebTests
         {
             app.Navigator.GoToBaseUrl();
             app.Auth.Login(new AccountData("admin", "secret"));
+            if (!app.Contacts.IsContactOrGroupPresent())
+            {
+                app.Contacts.FillContactData(new ContactsData("dsfgh", "dfghdf", "dfghdgf"));
+                app.Contacts.SubmitNewContact();
+            }
             app.Contacts.EditContact(1);
             app.Contacts.ModifyContact(new ContactsData("32452", "2542", "25436"));
             app.Contacts.UpdateContact(); //click Update button
@@ -41,6 +46,12 @@ namespace AddressbookWebTests
         {
             app.Navigator.GoToBaseUrl();
             app.Auth.Login(new AccountData("admin", "secret"));
+
+            if (!app.Contacts.IsContactOrGroupPresent())
+            {
+                app.Contacts.FillContactData(new ContactsData("dsfgh", "dfghdf", "dfghdgf"));
+                app.Contacts.SubmitNewContact();
+            }
             app.Contacts.EditContact(1);
             app.Contacts.DeleteContact(); //click Update button
             app.Navigator.GoToHome();
@@ -52,7 +63,13 @@ namespace AddressbookWebTests
         {
             app.Navigator.GoToBaseUrl();
             app.Auth.Login(new AccountData("admin", "secret"));
-            app.Contacts.SelectContact(1);
+
+            if (!app.Contacts.IsContactOrGroupPresent())
+            {
+                app.Contacts.FillContactData(new ContactsData("dsfgh", "dfghdf", "dfghdgf"));
+                app.Contacts.SubmitNewContact();
+            }
+            app.Contacts.SelectContac(1);
             app.Contacts.DeleteContact(); //click Delete button
             app.Driver.SwitchTo().Alert().Accept();
             app.Navigator.GoToHome();

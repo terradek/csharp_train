@@ -85,13 +85,31 @@ namespace AddressbookWebTests
         {
             driver.FindElement(By.XPath("//input[@value='Update']")).Click();
         }
-        public void SelectContact(int i)
+        public void SelectContac(int i)
         {
-            driver.FindElement(By.XPath($"(//input[@name='selected[]'])[{i}]")).Click();
+            try
+            {
+                var result = new WebDriverWait(driver, TimeSpan.FromSeconds(40))
+                    .Until(driver => driver.FindElement(By.XPath($"(//input[@name='selected[]'])[{i}]")));
+                result.Click();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
         public void EditContact(int i)
         {
-            driver.FindElement(By.XPath($"//img[@title='Edit'][{i}]")).Click();
+            try
+            {
+                var result = new WebDriverWait(driver, TimeSpan.FromSeconds(40))
+                    .Until(driver => driver.FindElement(By.XPath($"//img[@title='Edit'][{i}]")));
+                result.Click();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
         public void DeleteContact()
         {

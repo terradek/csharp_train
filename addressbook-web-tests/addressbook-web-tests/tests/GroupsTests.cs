@@ -32,9 +32,17 @@ namespace AddressbookWebTests
             app.Navigator.GoToBaseUrl();
             app.Auth.Login(new AccountData("admin", "secret"));
             app.Navigator.GoToGroups();
-            app.Groups.SelectGroup(1);
-            app.Groups.DeleteGroup();
-            app.Navigator.GoToHome();
+
+            if (!app.Groups.IsContactOrGroupPresent())
+            {
+                app.Groups.CreateNewGroup();
+                app.Groups.FillGroupData(new GroupsData("dcvh", "cvbn", "cvbn"));
+                app.Groups.SubmitNewGroup();
+                app.Navigator.GoToGroups();
+            }
+                app.Groups.SelectGroup(1);
+                app.Groups.DeleteGroup(); 
+                app.Navigator.GoToHome();
         }
 
         [Test]
@@ -43,6 +51,15 @@ namespace AddressbookWebTests
             app.Navigator.GoToBaseUrl();
             app.Auth.Login(new AccountData("admin", "secret"));
             app.Navigator.GoToGroups();
+
+            if (!app.Groups.IsContactOrGroupPresent())
+            {
+                app.Groups.CreateNewGroup();
+                app.Groups.FillGroupData(new GroupsData("dcvh", "cvbn", "cvbn"));
+                app.Groups.SubmitNewGroup();
+                app.Navigator.GoToGroups();
+
+            }
             app.Groups.SelectGroup(1);
             app.Groups.ModifyGroup();
             app.Groups.FillGroupData(new GroupsData("sdgf", "sfdgds", "cvsdfgbn"));
