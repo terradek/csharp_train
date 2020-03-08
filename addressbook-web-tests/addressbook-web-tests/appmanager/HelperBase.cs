@@ -11,10 +11,13 @@ namespace AddressbookWebTests
             this.driver = driver;
         }
 
-        public void ClearAndTypeField(By by, string password)
+        public void ClearAndTypeField(By by, string text)
         {
-            driver.FindElement(by).Clear();
-            driver.FindElement(by).SendKeys(password);
+            if (text !=null)
+            {
+                driver.FindElement(by).Clear();
+                driver.FindElement(by).SendKeys(text); 
+            }
         }
     }
 }
