@@ -18,7 +18,6 @@ namespace AddressbookWebTests
         public void FillContactData(ContactsData contact)
         {
             driver.FindElement(By.LinkText("add new")).Click();
-            ClearAndTypeField(By.Name("firstname"), contact.Firstname);
             ModifyContact(contact);
         }
 
