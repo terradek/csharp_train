@@ -9,7 +9,7 @@ namespace AddressbookWebTests
     public class GroupsData
     {
 
-        public GroupsData(string name, string header, string footer)
+        public GroupsData(string name, string header = "", string footer = "")
         {
             Name = name;
             Header = header;

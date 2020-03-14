@@ -25,6 +25,22 @@ namespace AddressbookWebTests
         {
             driver.FindElement(By.Name("delete")).Click();
         }
+
+        public List<GroupsData> GetGroupsList()
+        {
+            var groups = new List<GroupsData>();
+            var elements = driver.FindElements(By.XPath("//span[@class='group']"));
+
+            foreach ( var element in elements)
+            {
+                GroupsData group = new GroupsData(element.Text);
+                groups.Add(group);
+            }
+
+            return groups;
+                
+        }
+
         public void FillGroupData(GroupsData group)
         {
             ClearAndTypeField(By.Name("group_name"), group.Name);

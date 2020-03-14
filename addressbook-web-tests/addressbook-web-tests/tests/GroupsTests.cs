@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -18,10 +19,18 @@ namespace AddressbookWebTests
         {
             app.Navigator.GoToBaseUrl();
             app.Auth.Login(new AccountData("admin", "secret"));
+
             app.Navigator.GoToGroups();
+            List<GroupsData> oldGroups = app.Groups.GetGroupsList();
+            
             app.Groups.CreateNewGroup();
             app.Groups.FillGroupData(new GroupsData("dcvh", "cvbn", "cvbn"));
             app.Groups.SubmitNewGroup();
+
+            app.Navigator.GoToGroups();
+            List<GroupsData> newGroups = app.Groups.GetGroupsList();
+            Assert.AreEqual(oldGroups.Count + 1, newGroups.Count);
+
             app.Navigator.GoToHome();
             app.Auth.Logout();
         }
@@ -40,9 +49,16 @@ namespace AddressbookWebTests
                 app.Groups.SubmitNewGroup();
                 app.Navigator.GoToGroups();
             }
-                app.Groups.SelectGroup(1);
-                app.Groups.DeleteGroup(); 
-                app.Navigator.GoToHome();
+
+            List<GroupsData> oldGroups = app.Groups.GetGroupsList();
+            app.Groups.SelectGroup(1);
+            app.Groups.DeleteGroup();
+
+            app.Navigator.GoToGroups();
+            List<GroupsData> newGroups = app.Groups.GetGroupsList();
+            Assert.AreEqual(oldGroups.Count - 1, newGroups.Count);
+
+            app.Navigator.GoToHome();
         }
 
         [Test]
@@ -60,10 +76,18 @@ namespace AddressbookWebTests
                 app.Navigator.GoToGroups();
 
             }
+
+            List<GroupsData> oldGroups = app.Groups.GetGroupsList();
+
             app.Groups.SelectGroup(1);
             app.Groups.ModifyGroup();
             app.Groups.FillGroupData(new GroupsData("sdgf", "sfdgds", "cvsdfgbn"));
             app.Groups.UpdateGroup();
+
+            app.Navigator.GoToGroups();
+            List<GroupsData> newGroups = app.Groups.GetGroupsList();
+            Assert.AreEqual(oldGroups.Count, newGroups.Count);
+
             app.Navigator.GoToHome();
         }
     }
