@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AddressbookWebTests
 {
-    public class ContactsData
+    public class ContactsData: IEquatable<ContactsData>, IComparable<ContactsData>
     {
         //private string
         /*  nickname,
@@ -38,6 +38,37 @@ namespace AddressbookWebTests
         public string LastName { get; set; }
 
         public string MiddleName { get; set; }
+
+        public int CompareTo(ContactsData other)
+        {
+            if (Object.ReferenceEquals(other, null))
+                return 1;
+            if (Object.ReferenceEquals(other, this))
+                return 0;
+            var otherFirstLastName = other.Firstname + other.LastName;
+            var thisFirstLastName = Firstname + LastName;
+            return thisFirstLastName.CompareTo(otherFirstLastName);
+        }
+
+        public bool Equals(ContactsData other)
+        {
+            if (Object.ReferenceEquals(other, null))
+                return false;
+            if (Object.ReferenceEquals(this, other))
+                return true;
+            return (other.Firstname == Firstname && other.LastName == LastName);
+        }
+
+        //ASK how to implement GetHashCode() & ToString() in Contacts?
+        /*        public override int GetHashCode()
+                {
+                   return Name.GetHashCode();
+                }
+
+                public override string ToString()
+                {
+                    return Name;
+                }*/
     }
 
 

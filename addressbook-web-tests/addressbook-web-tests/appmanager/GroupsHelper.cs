@@ -11,14 +11,14 @@ namespace AddressbookWebTests
 {
     public class GroupsHelper : HelperBase
     {
-        public GroupsHelper(IWebDriver driver) 
-            :base(driver)
+        public GroupsHelper(IWebDriver driver)
+            : base(driver)
         {
         }
 
         public void SelectGroup(int i)
         {
-            driver.FindElement(By.XPath($"(//input[@name='selected[]'])[{i+1}]")).Click(); //i+1 to match 0th element from a list
+            driver.FindElement(By.XPath($"(//input[@name='selected[]'])[{i + 1}]")).Click(); //i+1 to match 0th element from a list
         }
 
         public void DeleteGroup()
@@ -31,14 +31,14 @@ namespace AddressbookWebTests
             var groups = new List<GroupsData>();
             var elements = driver.FindElements(By.XPath("//span[@class='group']"));
 
-            foreach ( var element in elements)
+            foreach (var element in elements)
             {
                 GroupsData group = new GroupsData(element.Text);
                 groups.Add(group);
             }
 
             return groups;
-                
+
         }
 
         public void FillGroupData(GroupsData group)

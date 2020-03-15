@@ -21,11 +21,18 @@ namespace AddressbookWebTests
             app.Auth.Login(new AccountData("admin", "secret"));
             
             List<ContactsData> oldContacts = app.Contacts.GetContactsList();
-            app.Contacts.FillContactData(new ContactsData("dsfgh", "dfghdf", "dfghdgf"));
+            ContactsData contact = new ContactsData("dsfgh", "dfghdf", "dfghdgf");
+            app.Contacts.FillContactData(contact);
             app.Contacts.SubmitNewContact();
             app.Navigator.GoToHome();
+            
             List<ContactsData> newContacts = app.Contacts.GetContactsList();
             Assert.AreEqual(oldContacts.Count + 1, newContacts.Count);
+
+            oldContacts.Add(contact);
+            oldContacts.Sort();
+            newContacts.Sort();
+            Assert.AreEqual(oldContacts, newContacts);
 
             app.Auth.Logout();
         }
@@ -35,21 +42,30 @@ namespace AddressbookWebTests
         {
             app.Navigator.GoToBaseUrl();
             app.Auth.Login(new AccountData("admin", "secret"));
+            
             if (!app.Contacts.IsContactOrGroupPresent())
             {
-                app.Contacts.FillContactData(new ContactsData("dsfgh", "dfghdf", "dfghdgf"));
+                ContactsData contact = new ContactsData("dsfgh", "dfghdf", "dfghdgf");
+                app.Contacts.FillContactData(contact);
                 app.Contacts.SubmitNewContact();
             }
             List<ContactsData> oldContacts = app.Contacts.GetContactsList();
             
             app.Contacts.EditContact(0);
-            app.Contacts.ModifyContact(new ContactsData("32452", "2542", "25436"));
+            ContactsData contactEdited = new ContactsData("32452", "2542", "25436");
+            app.Contacts.ModifyContact(contactEdited);
             app.Contacts.UpdateContact(); //click Update button
             app.Navigator.GoToHome();
             
             List<ContactsData> newContacts = app.Contacts.GetContactsList();
             Assert.AreEqual(oldContacts.Count, newContacts.Count);
-            
+
+            oldContacts[0].Firstname = contactEdited.Firstname;
+            oldContacts[0].LastName = contactEdited.LastName;
+            oldContacts.Sort();
+            newContacts.Sort();
+            Assert.AreEqual(oldContacts, newContacts);
+
             app.Auth.Logout();
         }
 
@@ -58,17 +74,25 @@ namespace AddressbookWebTests
         {
             app.Navigator.GoToBaseUrl();
             app.Auth.Login(new AccountData("admin", "secret"));
+            ContactsData contact = new ContactsData("dsfgh", "dfghdf", "dfghdgf");
 
             if (!app.Contacts.IsContactOrGroupPresent())
             {
-                app.Contacts.FillContactData(new ContactsData("dsfgh", "dfghdf", "dfghdgf"));
+                app.Contacts.FillContactData(contact);
                 app.Contacts.SubmitNewContact();
             }
             List<ContactsData> oldContacts = app.Contacts.GetContactsList();
             app.Contacts.EditContact(0);
             app.Contacts.DeleteContact(); //click Update button
+            
             List<ContactsData> newContacts = app.Contacts.GetContactsList();
             Assert.AreEqual(oldContacts.Count - 1, newContacts.Count);
+
+            oldContacts.RemoveAt(0);
+            oldContacts.Sort();
+            newContacts.Sort();
+            Assert.AreEqual(oldContacts, newContacts);
+
             app.Navigator.GoToHome();
             app.Auth.Logout();
         }
@@ -93,6 +117,11 @@ namespace AddressbookWebTests
             
             List<ContactsData> newContacts = app.Contacts.GetContactsList();
             Assert.AreEqual(oldContacts.Count - 1, newContacts.Count);
+
+            oldContacts.RemoveAt(0);
+            oldContacts.Sort();
+            newContacts.Sort();
+            Assert.AreEqual(oldContacts, newContacts);
 
             app.Navigator.GoToHome();
             app.Auth.Logout();
