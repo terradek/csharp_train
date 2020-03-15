@@ -107,7 +107,7 @@ namespace AddressbookWebTests
             try
             {
                 var result = new WebDriverWait(driver, TimeSpan.FromSeconds(40))
-                    .Until(driver => driver.FindElement(By.XPath($"(//input[@name='selected[]'])[{i}]")));
+                    .Until(driver => driver.FindElement(By.XPath($"(//input[@name='selected[]'])[{i+1}]"))); //i+1 to match 0th element from a list
                 result.Click();
             }
             catch (Exception ex)
@@ -120,7 +120,7 @@ namespace AddressbookWebTests
             try
             {
                 var result = new WebDriverWait(driver, TimeSpan.FromSeconds(40))
-                    .Until(driver => driver.FindElement(By.XPath($"//img[@title='Edit'][{i}]")));
+                    .Until(driver => driver.FindElement(By.XPath($"//img[@title='Edit'][{i+1}]")));
                 result.Click();
             }
             catch (Exception ex)

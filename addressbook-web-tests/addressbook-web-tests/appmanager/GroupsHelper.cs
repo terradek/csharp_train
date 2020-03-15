@@ -18,7 +18,7 @@ namespace AddressbookWebTests
 
         public void SelectGroup(int i)
         {
-            driver.FindElement(By.XPath($"(//input[@name='selected[]'])[{i}]")).Click();
+            driver.FindElement(By.XPath($"(//input[@name='selected[]'])[{i+1}]")).Click(); //i+1 to match 0th element from a list
         }
 
         public void DeleteGroup()

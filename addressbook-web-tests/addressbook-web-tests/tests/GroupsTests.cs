@@ -51,7 +51,7 @@ namespace AddressbookWebTests
             }
 
             List<GroupsData> oldGroups = app.Groups.GetGroupsList();
-            app.Groups.SelectGroup(1);
+            app.Groups.SelectGroup(0);
             app.Groups.DeleteGroup();
 
             app.Navigator.GoToGroups();
@@ -79,7 +79,7 @@ namespace AddressbookWebTests
 
             List<GroupsData> oldGroups = app.Groups.GetGroupsList();
 
-            app.Groups.SelectGroup(1);
+            app.Groups.SelectGroup(0);
             app.Groups.ModifyGroup();
             app.Groups.FillGroupData(new GroupsData("sdgf", "sfdgds", "cvsdfgbn"));
             app.Groups.UpdateGroup();

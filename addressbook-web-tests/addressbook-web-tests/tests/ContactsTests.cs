@@ -42,7 +42,7 @@ namespace AddressbookWebTests
             }
             List<ContactsData> oldContacts = app.Contacts.GetContactsList();
             
-            app.Contacts.EditContact(1);
+            app.Contacts.EditContact(0);
             app.Contacts.ModifyContact(new ContactsData("32452", "2542", "25436"));
             app.Contacts.UpdateContact(); //click Update button
             app.Navigator.GoToHome();
@@ -65,7 +65,7 @@ namespace AddressbookWebTests
                 app.Contacts.SubmitNewContact();
             }
             List<ContactsData> oldContacts = app.Contacts.GetContactsList();
-            app.Contacts.EditContact(1);
+            app.Contacts.EditContact(0);
             app.Contacts.DeleteContact(); //click Update button
             List<ContactsData> newContacts = app.Contacts.GetContactsList();
             Assert.AreEqual(oldContacts.Count - 1, newContacts.Count);
@@ -87,7 +87,7 @@ namespace AddressbookWebTests
 
             List<ContactsData> oldContacts = app.Contacts.GetContactsList();
             
-            app.Contacts.SelectContact(1);
+            app.Contacts.SelectContact(0);
             app.Contacts.DeleteContact(wait:false); //click Delete button
             app.Driver.SwitchTo().Alert().Accept();
             
