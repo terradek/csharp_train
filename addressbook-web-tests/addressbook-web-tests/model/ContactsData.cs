@@ -27,7 +27,7 @@ namespace AddressbookWebTests
             group, 
             photo;*/
         //DateTime birthday, anniversary;
-        public ContactsData(string firstName, string middleName, string lastName)
+        public ContactsData(string firstName, string lastName, string middleName = "")
         {
             Firstname = firstName;
             MiddleName = middleName;

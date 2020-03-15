@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
@@ -21,7 +22,22 @@ namespace AddressbookWebTests
             ModifyContact(contact);
         }
 
+        public List<ContactsData> GetContactsList()
+        {
+            new WebDriverWait(driver, TimeSpan.FromSeconds(40)).Until(ExpectedConditions.UrlToBe("http://localhost/addressbook/"));
+            new WebDriverWait(driver, TimeSpan.FromSeconds(40)).Until(ExpectedConditions.ElementIsVisible(By.XPath("//input[@id='MassCB']")));
+            var lastNames = driver.FindElements(By.XPath("//table[@id='maintable']//td[2]"));
+            var firstNames = driver.FindElements(By.XPath("//table[@id='maintable']//td[3]"));
+            Assert.AreEqual(lastNames.Count, firstNames.Count);
 
+            List<ContactsData> contacts = new List<ContactsData>();
+            for (int i= 0; i < lastNames.Count; i++)
+            {
+                ContactsData contact = new ContactsData(firstNames[i].Text, lastNames[i].Text);
+                contacts.Add(contact);
+            }
+            return contacts;
+        }
 
         internal void ModifyContact(ContactsData contact)
         {
@@ -80,12 +96,13 @@ namespace AddressbookWebTests
         public void SubmitNewContact()
         {
             driver.FindElement(By.XPath("//input[@name='id']/preceding-sibling::input[@type='submit']")).Click();
+            new WebDriverWait(driver, TimeSpan.FromSeconds(40)).Until(ExpectedConditions.UrlToBe("http://localhost/addressbook/"));
         }
         public void UpdateContact()
         {
             driver.FindElement(By.XPath("//input[@value='Update']")).Click();
         }
-        public void SelectContac(int i)
+        public void SelectContact(int i)
         {
             try
             {
@@ -111,9 +128,20 @@ namespace AddressbookWebTests
                 throw;
             }
         }
-        public void DeleteContact()
+        public void DeleteContact(bool wait=true)
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+
+            //ASK !!!! How can I get app.baseUrl in this class?
+            //ASK how to add '&&' into .Until (or chain them)?
+            if (wait)
+            {
+                //Waiting page comes back to HomePage
+                var waitBaseUrl = new WebDriverWait(driver, TimeSpan.FromSeconds(40))
+                    .Until(ExpectedConditions.UrlToBe("http://localhost/addressbook/"));
+                var waitSelectAll = new WebDriverWait(driver, TimeSpan.FromSeconds(40))
+                    .Until(ExpectedConditions.ElementIsVisible(By.XPath("//input[@id='MassCB']"))); 
+            }
         }
     }
 }

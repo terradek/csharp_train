@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -18,9 +19,14 @@ namespace AddressbookWebTests
         {
             app.Navigator.GoToBaseUrl();
             app.Auth.Login(new AccountData("admin", "secret"));
+            
+            List<ContactsData> oldContacts = app.Contacts.GetContactsList();
             app.Contacts.FillContactData(new ContactsData("dsfgh", "dfghdf", "dfghdgf"));
             app.Contacts.SubmitNewContact();
             app.Navigator.GoToHome();
+            List<ContactsData> newContacts = app.Contacts.GetContactsList();
+            Assert.AreEqual(oldContacts.Count + 1, newContacts.Count);
+
             app.Auth.Logout();
         }
 
@@ -34,15 +40,21 @@ namespace AddressbookWebTests
                 app.Contacts.FillContactData(new ContactsData("dsfgh", "dfghdf", "dfghdgf"));
                 app.Contacts.SubmitNewContact();
             }
+            List<ContactsData> oldContacts = app.Contacts.GetContactsList();
+            
             app.Contacts.EditContact(1);
             app.Contacts.ModifyContact(new ContactsData("32452", "2542", "25436"));
             app.Contacts.UpdateContact(); //click Update button
             app.Navigator.GoToHome();
+            
+            List<ContactsData> newContacts = app.Contacts.GetContactsList();
+            Assert.AreEqual(oldContacts.Count, newContacts.Count);
+            
             app.Auth.Logout();
         }
 
         [Test]
-        public void ContactDeletionTest()
+        public void ContactDeletionFromEditPageTest()
         {
             app.Navigator.GoToBaseUrl();
             app.Auth.Login(new AccountData("admin", "secret"));
@@ -52,8 +64,11 @@ namespace AddressbookWebTests
                 app.Contacts.FillContactData(new ContactsData("dsfgh", "dfghdf", "dfghdgf"));
                 app.Contacts.SubmitNewContact();
             }
+            List<ContactsData> oldContacts = app.Contacts.GetContactsList();
             app.Contacts.EditContact(1);
             app.Contacts.DeleteContact(); //click Update button
+            List<ContactsData> newContacts = app.Contacts.GetContactsList();
+            Assert.AreEqual(oldContacts.Count - 1, newContacts.Count);
             app.Navigator.GoToHome();
             app.Auth.Logout();
         }
@@ -69,9 +84,16 @@ namespace AddressbookWebTests
                 app.Contacts.FillContactData(new ContactsData("dsfgh", "dfghdf", "dfghdgf"));
                 app.Contacts.SubmitNewContact();
             }
-            app.Contacts.SelectContac(1);
-            app.Contacts.DeleteContact(); //click Delete button
+
+            List<ContactsData> oldContacts = app.Contacts.GetContactsList();
+            
+            app.Contacts.SelectContact(1);
+            app.Contacts.DeleteContact(wait:false); //click Delete button
             app.Driver.SwitchTo().Alert().Accept();
+            
+            List<ContactsData> newContacts = app.Contacts.GetContactsList();
+            Assert.AreEqual(oldContacts.Count - 1, newContacts.Count);
+
             app.Navigator.GoToHome();
             app.Auth.Logout();
         }
