@@ -21,8 +21,9 @@ namespace AddressbookWebTests
             driver.FindElement(By.LinkText("add new")).Click();
             ModifyContact(contact);
         }
+        private List<ContactsData> contactsCache = null;
+        
         public List<ContactsData> GetContactsList() {
-            List<ContactsData> contacts = new List<ContactsData>();
             /*1) Из метода получения списка контактов можно убрать ожидания открытия нужного адреса и появления элемента на странице. 
             Вместо этого перед получением списка контактов можно сделать переход на страницу контактов (главную страницу приложения).
             2) Метод получения списка контактов можно улучшить. Напимер, алгоритм можно реализовать так:
@@ -30,17 +31,21 @@ namespace AddressbookWebTests
                2. В цикле пробегаемся по каждой строке, и с помощью element.FindElements получаем список ячеек (это элементы с тегом td)
                3. Берём текст из ячеек с нужным нам индексом (cells[1].Text)*/
 
-            //Getting a list of rows:
-            var rows = driver.FindElements(By.XPath("//tr[@name='entry']"));
-            foreach (var row in rows) {
-                string firstName = row.FindElements(By.XPath("./td"))[2].Text;
-                //var firstName = row.Text.Split(" ")[1];
-                string lastName = row.FindElements(By.XPath("./td"))[1].Text;
-                //var lastName = row.Text.Split(" ")[0];
-                ContactsData contact = new ContactsData(firstName, lastName);
-                contacts.Add(contact);
-            };
-            return contacts;
+
+            if (contactsCache == null) {
+                contactsCache = new List<ContactsData>();
+                //Getting a list of rows:
+                var rows = driver.FindElements(By.XPath("//tr[@name='entry']"));
+                foreach (var row in rows) {
+                    //var lastName = row.Text.Split(" ")[0];
+                    //var firstName = row.Text.Split(" ")[1];
+                    string lastName = row.FindElements(By.XPath("./td"))[1].Text;
+                    string firstName = row.FindElements(By.XPath("./td"))[2].Text;
+                    ContactsData contact = new ContactsData(firstName, lastName);
+                    contactsCache.Add(contact);
+                }; 
+            }
+            return new List<ContactsData>(contactsCache);
         }
 
         internal void ModifyContact(ContactsData contact)
@@ -95,6 +100,7 @@ namespace AddressbookWebTests
             driver.FindElement(By.Name("phone2")).SendKeys("dfghgfd"); 
             driver.FindElement(By.Name("notes")).Clear();
             driver.FindElement(By.Name("notes")).SendKeys("dfghgfdhfdg");*/
+            contactsCache = null;
         }
 
         public void SubmitNewContact()
@@ -146,6 +152,7 @@ namespace AddressbookWebTests
                 var waitSelectAll = new WebDriverWait(driver, TimeSpan.FromSeconds(40))
                     .Until(ExpectedConditions.ElementIsVisible(By.XPath("//input[@id='MassCB']"))); 
             }
+            contactsCache = null;
         }
 
     }

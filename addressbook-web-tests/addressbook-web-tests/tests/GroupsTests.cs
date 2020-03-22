@@ -89,7 +89,6 @@ namespace AddressbookWebTests
                 app.Groups.FillGroupData(new GroupsData("dcvh", "cvbn", "cvbn"));
                 app.Groups.SubmitNewGroup();
                 app.Navigator.GoToGroups();
-
             }
 
             List<GroupsData> oldGroups = app.Groups.GetGroupsList();
