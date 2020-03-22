@@ -69,7 +69,6 @@ namespace AddressbookWebTests
             return (other.Firstname == Firstname && other.LastName == LastName);
         }
 
-        //ASK how to implement GetHashCode() & ToString() in Contacts?
         public override int GetHashCode() {
             /*4) Методы GetHashCode и ToString описаны верно, в них также можно ещё добавить фамилию контакта (вот в них её можно склеить с именем).*/
             return (Firstname+LastName).GetHashCode();

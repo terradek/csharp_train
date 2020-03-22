@@ -24,21 +24,24 @@ namespace AddressbookWebTests
         public void DeleteGroup()
         {
             driver.FindElement(By.Name("delete")).Click();
+            groupsCache = null;
         }
+
+        private List<GroupsData> groupsCache = null;
 
         public List<GroupsData> GetGroupsList()
         {
-            var groups = new List<GroupsData>();
-            var elements = driver.FindElements(By.XPath("//span[@class='group']"));
+            if (groupsCache == null) {
+                 groupsCache = new List<GroupsData>();
+                var elements = driver.FindElements(By.XPath("//span[@class='group']"));
 
-            foreach (var element in elements)
-            {
-                GroupsData group = new GroupsData(element.Text);
-                groups.Add(group);
+                foreach (var element in elements) {
+                    GroupsData group = new GroupsData(element.Text);
+                    groupsCache.Add(group);
+                } 
             }
 
-            return groups;
-
+            return new List<GroupsData>(groupsCache);
         }
 
         public void FillGroupData(GroupsData group)
@@ -46,6 +49,7 @@ namespace AddressbookWebTests
             ClearAndTypeField(By.Name("group_name"), group.Name);
             ClearAndTypeField(By.Name("group_header"), group.Header);
             ClearAndTypeField(By.Name("group_footer"), group.Footer);
+            groupsCache = null;
         }
 
         public void SubmitNewGroup()
