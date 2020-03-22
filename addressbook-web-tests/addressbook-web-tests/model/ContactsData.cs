@@ -45,9 +45,19 @@ namespace AddressbookWebTests
                 return 1;
             if (Object.ReferenceEquals(other, this))
                 return 0;
-            var otherFirstLastName = other.Firstname + other.LastName;
-            var thisFirstLastName = Firstname + LastName;
-            return thisFirstLastName.CompareTo(otherFirstLastName);
+           
+            var compare = LastName.CompareTo(other.LastName);
+            
+            if (compare == 0) 
+                return Firstname.CompareTo(other.Firstname);
+             else
+                return compare;
+
+            /*3) Надо исправить метод CompareTo(). В нём лучше не склеивать фамилию и имя перед сравнением, 
+            а сравнить сначала фамилии и если они равны, то сравнить имена и возвратить результ, иначе возвратить результат сравнения фамилий.*/
+            //var otherFirstLastName = other.Firstname + other.LastName;
+            //var thisFirstLastName = Firstname + LastName;
+            //return thisFirstLastName.CompareTo(otherFirstLastName);
         }
 
         public bool Equals(ContactsData other)
@@ -60,15 +70,14 @@ namespace AddressbookWebTests
         }
 
         //ASK how to implement GetHashCode() & ToString() in Contacts?
-        /*        public override int GetHashCode()
-                {
-                   return Name.GetHashCode();
-                }
+        public override int GetHashCode() {
+            /*4) Методы GetHashCode и ToString описаны верно, в них также можно ещё добавить фамилию контакта (вот в них её можно склеить с именем).*/
+            return (Firstname+LastName).GetHashCode();
+        }
 
-                public override string ToString()
-                {
-                    return Name;
-                }*/
+        public override string ToString() {
+            return $"{Firstname} {LastName}";
+        }
     }
 
 

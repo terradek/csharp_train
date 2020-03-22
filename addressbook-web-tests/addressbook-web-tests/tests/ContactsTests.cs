@@ -20,12 +20,14 @@ namespace AddressbookWebTests
             app.Navigator.GoToBaseUrl();
             app.Auth.Login(new AccountData("admin", "secret"));
             
+            app.Navigator.GoToBaseUrl();
             List<ContactsData> oldContacts = app.Contacts.GetContactsList();
             ContactsData contact = new ContactsData("dsfgh", "dfghdf", "dfghdgf");
             app.Contacts.FillContactData(contact);
             app.Contacts.SubmitNewContact();
             app.Navigator.GoToHome();
             
+            app.Navigator.GoToBaseUrl();
             List<ContactsData> newContacts = app.Contacts.GetContactsList();
             Assert.AreEqual(oldContacts.Count + 1, newContacts.Count);
 
@@ -49,6 +51,7 @@ namespace AddressbookWebTests
                 app.Contacts.FillContactData(contact);
                 app.Contacts.SubmitNewContact();
             }
+            app.Navigator.GoToBaseUrl();
             List<ContactsData> oldContacts = app.Contacts.GetContactsList();
             
             app.Contacts.EditContact(0);
@@ -57,6 +60,7 @@ namespace AddressbookWebTests
             app.Contacts.UpdateContact(); //click Update button
             app.Navigator.GoToHome();
             
+            app.Navigator.GoToBaseUrl();
             List<ContactsData> newContacts = app.Contacts.GetContactsList();
             Assert.AreEqual(oldContacts.Count, newContacts.Count);
 
@@ -81,10 +85,12 @@ namespace AddressbookWebTests
                 app.Contacts.FillContactData(contact);
                 app.Contacts.SubmitNewContact();
             }
+            app.Navigator.GoToBaseUrl();
             List<ContactsData> oldContacts = app.Contacts.GetContactsList();
             app.Contacts.EditContact(0);
             app.Contacts.DeleteContact(); //click Update button
             
+            app.Navigator.GoToBaseUrl();
             List<ContactsData> newContacts = app.Contacts.GetContactsList();
             Assert.AreEqual(oldContacts.Count - 1, newContacts.Count);
 
@@ -109,12 +115,14 @@ namespace AddressbookWebTests
                 app.Contacts.SubmitNewContact();
             }
 
+            app.Navigator.GoToBaseUrl();
             List<ContactsData> oldContacts = app.Contacts.GetContactsList();
             
             app.Contacts.SelectContact(0);
             app.Contacts.DeleteContact(wait:false); //click Delete button
             app.Driver.SwitchTo().Alert().Accept();
             
+            app.Navigator.GoToBaseUrl();
             List<ContactsData> newContacts = app.Contacts.GetContactsList();
             Assert.AreEqual(oldContacts.Count - 1, newContacts.Count);
 

@@ -21,21 +21,25 @@ namespace AddressbookWebTests
             driver.FindElement(By.LinkText("add new")).Click();
             ModifyContact(contact);
         }
-
-        public List<ContactsData> GetContactsList()
-        {
-            new WebDriverWait(driver, TimeSpan.FromSeconds(40)).Until(ExpectedConditions.UrlToBe("http://localhost/addressbook/"));
-            new WebDriverWait(driver, TimeSpan.FromSeconds(40)).Until(ExpectedConditions.ElementIsVisible(By.XPath("//input[@id='MassCB']")));
-            var lastNames = driver.FindElements(By.XPath("//table[@id='maintable']//td[2]"));
-            var firstNames = driver.FindElements(By.XPath("//table[@id='maintable']//td[3]"));
-            Assert.AreEqual(lastNames.Count, firstNames.Count);
-
+        public List<ContactsData> GetContactsList() {
             List<ContactsData> contacts = new List<ContactsData>();
-            for (int i= 0; i < lastNames.Count; i++)
-            {
-                ContactsData contact = new ContactsData(firstNames[i].Text, lastNames[i].Text);
+            /*1) Из метода получения списка контактов можно убрать ожидания открытия нужного адреса и появления элемента на странице. 
+            Вместо этого перед получением списка контактов можно сделать переход на страницу контактов (главную страницу приложения).
+            2) Метод получения списка контактов можно улучшить. Напимер, алгоритм можно реализовать так:
+               1. Получаем список всех строк таблицы контактов (это элементы с именем entry)
+               2. В цикле пробегаемся по каждой строке, и с помощью element.FindElements получаем список ячеек (это элементы с тегом td)
+               3. Берём текст из ячеек с нужным нам индексом (cells[1].Text)*/
+
+            //Getting a list of rows:
+            var rows = driver.FindElements(By.XPath("//tr[@name='entry']"));
+            foreach (var row in rows) {
+                string firstName = row.FindElements(By.XPath("./td"))[2].Text;
+                //var firstName = row.Text.Split(" ")[1];
+                string lastName = row.FindElements(By.XPath("./td"))[1].Text;
+                //var lastName = row.Text.Split(" ")[0];
+                ContactsData contact = new ContactsData(firstName, lastName);
                 contacts.Add(contact);
-            }
+            };
             return contacts;
         }
 
@@ -143,5 +147,6 @@ namespace AddressbookWebTests
                     .Until(ExpectedConditions.ElementIsVisible(By.XPath("//input[@id='MassCB']"))); 
             }
         }
+
     }
 }
