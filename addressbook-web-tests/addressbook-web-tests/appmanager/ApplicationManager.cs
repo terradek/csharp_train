@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,14 +40,39 @@ namespace AddressbookWebTests
 
         public void Stop()
         {
-            try
-            {
+
+            try {
                 driver.Quit();
-            }
-            catch (Exception)
-            {
-                // Ignore errors if unable to close the browser
-            }
+            } catch { /* Ignore errors if unable to close the browser */ }
+
+                Process[] conhostProcesses = Process.GetProcessesByName("conhost");
+                Process[] chromeDriverProcesses = Process.GetProcessesByName("chromedriver");
+                Process[] geckoDriverProcesses = Process.GetProcessesByName("geckodriver");
+                Process[] runtimebrokerProcesses = Process.GetProcessesByName("runtimebroker");
+
+            try {
+                foreach (var conhostProcess in conhostProcesses) {
+                    //if (conhostProcess.StartInfo.Environment["USERNAME"] == "user")  //shows only the userName of a test process itself - not the conhostProcess user 
+                    if (conhostProcess.SessionId !=0)
+                    conhostProcess.Kill();
+                }        
+            } catch { }
+
+            try {
+                foreach (var chromeDriverProcess in chromeDriverProcesses)
+                    chromeDriverProcess.Kill();
+            } catch { }
+
+            try {
+                foreach (var geckoDriverProcess in geckoDriverProcesses)
+                    geckoDriverProcess.Kill();
+            }  catch { /* Ignore errors if unable to close the browser */  }
+
+            try {
+                foreach (var runtimebrokerProcess in runtimebrokerProcesses)
+                    runtimebrokerProcess.Kill();
+            }  catch {   }
+
         }
     }
 }

@@ -30,8 +30,6 @@ namespace AddressbookWebTests
                1. Получаем список всех строк таблицы контактов (это элементы с именем entry)
                2. В цикле пробегаемся по каждой строке, и с помощью element.FindElements получаем список ячеек (это элементы с тегом td)
                3. Берём текст из ячеек с нужным нам индексом (cells[1].Text)*/
-
-
             if (contactsCache == null) {
                 contactsCache = new List<ContactsData>();
                 //Getting a list of rows:
@@ -117,7 +115,7 @@ namespace AddressbookWebTests
             try
             {
                 var result = new WebDriverWait(driver, TimeSpan.FromSeconds(40))
-                    .Until(driver => driver.FindElement(By.XPath($"(//input[@name='selected[]'])[{i+1}]"))); //i+1 to match 0th element from a list
+                    .Until(driver => driver.FindElement(By.XPath($"(//input[@name='selected[]'])[{i+1}]"))); //i+1 to match 0th element from a list inside an !!!Xpath formula!!!
                 result.Click();
             }
             catch (Exception ex)
@@ -129,9 +127,15 @@ namespace AddressbookWebTests
         {
             try
             {
-                var result = new WebDriverWait(driver, TimeSpan.FromSeconds(40))
+/*                var result = new WebDriverWait(driver, TimeSpan.FromSeconds(40))
                     .Until(driver => driver.FindElement(By.XPath($"//img[@title='Edit'][{i+1}]")));
-                result.Click();
+                result.Click();*/
+                //OR:
+                new WebDriverWait(driver, TimeSpan.FromSeconds(40))
+                    .Until(driver => driver.FindElements(By.Name("entry"))[i] //"i" starts from 0 since it's an Array-like received so we use instead of "i+1"
+                    .FindElements(By.TagName("td"))[7]).Click();              //the counts for .FindElements starts from 0 - so to find 8th element we need to use 7
+
+                /**/
             }
             catch (Exception ex)
             {
