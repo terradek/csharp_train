@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace AddressbookWebTests
 {
     public class ContactsData: IEquatable<ContactsData>, IComparable<ContactsData>
     {
+        private string allPhones;
+
         //private string
         /*  nickname,
             title,
@@ -34,10 +37,29 @@ namespace AddressbookWebTests
             LastName = lastName;
         }
         public string Firstname { get; set; }
-
         public string LastName { get; set; }
-
         public string MiddleName { get; set; }
+        public string Address { get; set; }
+        public string HomePhone { get; set; }
+        public string MobilePhone { get; set; }
+        public string WorkPhone { get; set; }
+        public string AllPhones 
+        { 
+            get 
+            { 
+                if (allPhones !=null) 
+                {
+                    return allPhones;
+                } else 
+                {
+                    return Regex.Replace(HomePhone+MobilePhone+WorkPhone, @"[^\d]", "");
+                }
+            } 
+            set 
+            {
+                allPhones = Regex.Replace(value, @"[^\d]", "");
+            }
+        }
 
         public int CompareTo(ContactsData other)
         {

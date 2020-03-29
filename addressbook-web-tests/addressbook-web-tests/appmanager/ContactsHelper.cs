@@ -46,11 +46,16 @@ namespace AddressbookWebTests
             return new List<ContactsData>(contactsCache);
         }
 
-        internal void ModifyContact(ContactsData contact)
+        public void ModifyContact(ContactsData contact)
         {
             ClearAndTypeField(By.Name("firstname"), contact.Firstname);
             ClearAndTypeField(By.Name("middlename"), contact.MiddleName);
             ClearAndTypeField(By.Name("lastname"), contact.LastName);
+            ClearAndTypeField(By.Name("address"), contact.Address);
+            ClearAndTypeField(By.Name("home"), contact.HomePhone);
+            ClearAndTypeField(By.Name("mobile"), contact.MobilePhone);
+            ClearAndTypeField(By.Name("work"), contact.WorkPhone);
+            
             /*
             driver.FindElement(By.Name("nickname")).Clear();
             driver.FindElement(By.Name("nickname")).SendKeys("dfghfd");
@@ -117,30 +122,27 @@ namespace AddressbookWebTests
                 var result = new WebDriverWait(driver, TimeSpan.FromSeconds(40))
                     .Until(driver => driver.FindElement(By.XPath($"(//input[@name='selected[]'])[{i+1}]"))); //i+1 to match 0th element from a list inside an !!!Xpath formula!!!
                 result.Click();
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
+            }  catch (Exception ex)   {    throw;     }
         }
-        public void EditContact(int i)
+
+        public IList<IWebElement> GetContactRow(int i) 
         {
-            try
-            {
+            //driver.FindElement(By.XPath($"//img[@title='Edit'][{i+1}]"));
+            //OR:
+            return driver.FindElements(By.Name("entry"))[i]  //"i" starts from 0 since it's an Array-like received so we use instead of "i+1"
+                .FindElements(By.TagName("td"));                //the counts for .FindElements starts from 0 - so to find 8th element we need to use -1
+        }
+
+        public void GoToContactEditing(int i) 
+        {
+            try {
 /*                var result = new WebDriverWait(driver, TimeSpan.FromSeconds(40))
                     .Until(driver => driver.FindElement(By.XPath($"//img[@title='Edit'][{i+1}]")));
                 result.Click();*/
                 //OR:
                 new WebDriverWait(driver, TimeSpan.FromSeconds(40))
-                    .Until(driver => driver.FindElements(By.Name("entry"))[i] //"i" starts from 0 since it's an Array-like received so we use instead of "i+1"
-                    .FindElements(By.TagName("td"))[7]).Click();              //the counts for .FindElements starts from 0 - so to find 8th element we need to use 7
-
-                /**/
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
+                    .Until(driver => GetContactRow(i)[7]).Click();
+            } catch (Exception ex)  { throw; }
         }
         public void DeleteContact(bool wait=true)
         {
@@ -159,5 +161,38 @@ namespace AddressbookWebTests
             contactsCache = null;
         }
 
+        public ContactsData GetContactDataFromEditForm() 
+        {
+            string firstName = driver.FindElement(By.Name("firstname")).GetAttribute("value");
+            string lastName = driver.FindElement(By.Name("lastname")).GetAttribute("value");
+            string middleName = driver.FindElement(By.Name("middlename")).GetAttribute("value");
+
+            string address = driver.FindElement(By.Name("address")).GetAttribute("value");
+            
+            string homePhone = driver.FindElement(By.Name("home")).GetAttribute("value");
+            string mobilePhone = driver.FindElement(By.Name("mobile")).GetAttribute("value");
+            string workPhone = driver.FindElement(By.Name("work")).GetAttribute("value");
+
+            return new ContactsData(firstName, lastName, middleName) {
+                Address = address,
+                HomePhone = homePhone,
+                MobilePhone = mobilePhone,
+                WorkPhone = workPhone
+            };
+        }
+
+        public ContactsData GetContactDataFromHomePage(int i) 
+        {
+            IList<IWebElement> cells = GetContactRow(i);
+            string lastName = cells[1].Text;
+            string firstName = cells[2].Text;
+            string address = cells[3].Text;
+            string phones = cells[5].Text;
+
+            return new ContactsData(firstName, lastName) {
+                Address = address,
+                AllPhones = phones
+            };
+        }
     }
 }

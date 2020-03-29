@@ -22,7 +22,7 @@ namespace AddressbookWebTests
             
             app.Navigator.GoToBaseUrl();
             List<ContactsData> oldContacts = app.Contacts.GetContactsList();
-            ContactsData contact = new ContactsData("dsfgh", "dfghdf", "dfghdgf");
+            ContactsData contact = new ContactsData("dsfgh1", "dfghdf1", "dfghdgf1") { Address = "asdsad", HomePhone = "+9(34)66-77-88", MobilePhone = "+3(070)33-55-65", WorkPhone = "+38(777)77-33-55"};
             app.Contacts.FillContactData(contact);
             app.Contacts.SubmitNewContact();
             app.Navigator.GoToHome();
@@ -30,6 +30,16 @@ namespace AddressbookWebTests
             app.Navigator.GoToBaseUrl();
             List<ContactsData> newContacts = app.Contacts.GetContactsList();
             Assert.AreEqual(oldContacts.Count + 1, newContacts.Count);
+
+            app.Contacts.GoToContactEditing(newContacts.Count - 1);
+            var contactFromForm = app.Contacts.GetContactDataFromEditForm();
+            
+            app.Navigator.GoToHome();
+            var contactFromHomePage = app.Contacts.GetContactDataFromHomePage(newContacts.Count - 1);
+
+            Assert.AreEqual(contactFromForm, contactFromHomePage);
+            Assert.AreEqual(contactFromForm.Address, contactFromHomePage.Address);
+            Assert.AreEqual(contactFromForm.AllPhones, contactFromHomePage.AllPhones);
 
             oldContacts.Add(contact);
             oldContacts.Sort();
@@ -54,7 +64,7 @@ namespace AddressbookWebTests
             app.Navigator.GoToBaseUrl();
             List<ContactsData> oldContacts = app.Contacts.GetContactsList();
             
-            app.Contacts.EditContact(0);
+            app.Contacts.GoToContactEditing(0);
             ContactsData contactEdited = new ContactsData("32452", "2542", "25436");
             app.Contacts.ModifyContact(contactEdited);
             app.Contacts.UpdateContact(); //click Update button
@@ -87,7 +97,7 @@ namespace AddressbookWebTests
             }
             app.Navigator.GoToBaseUrl();
             List<ContactsData> oldContacts = app.Contacts.GetContactsList();
-            app.Contacts.EditContact(0);
+            app.Contacts.GoToContactEditing(0);
             app.Contacts.DeleteContact(); //click Update button
             
             app.Navigator.GoToBaseUrl();

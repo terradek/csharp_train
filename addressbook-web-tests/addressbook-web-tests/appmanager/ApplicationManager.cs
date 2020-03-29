@@ -41,22 +41,23 @@ namespace AddressbookWebTests
         public void Stop()
         {
 
+
             try {
                 driver.Quit();
             } catch { /* Ignore errors if unable to close the browser */ }
 
-                Process[] conhostProcesses = Process.GetProcessesByName("conhost");
+                //Process[] conhostProcesses = Process.GetProcessesByName("conhost"); //prevents series of tests to run if enabled
                 Process[] chromeDriverProcesses = Process.GetProcessesByName("chromedriver");
                 Process[] geckoDriverProcesses = Process.GetProcessesByName("geckodriver");
                 Process[] runtimebrokerProcesses = Process.GetProcessesByName("runtimebroker");
 
-            try {
+/*            try {
                 foreach (var conhostProcess in conhostProcesses) {
                     //if (conhostProcess.StartInfo.Environment["USERNAME"] == "user")  //shows only the userName of a test process itself - not the conhostProcess user 
                     if (conhostProcess.SessionId !=0)
                     conhostProcess.Kill();
                 }        
-            } catch { }
+            } catch { }*/
 
             try {
                 foreach (var chromeDriverProcess in chromeDriverProcesses)
