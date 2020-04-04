@@ -71,8 +71,8 @@ namespace AddressbookWebTests
             Assert.AreEqual(oldGroups, newGroups);
             
             //ASK cannot implement operator  (==, !=) overriding
-            // Assert.IsTrue(oldGroups.Equals(newGroups)); //Always leads to TearDown
             bool x = oldGroups == newGroups; // always FALSE
+            Assert.IsTrue(oldGroups.Equals(newGroups)); //Always leads to TearDown
             app.Navigator.GoToHome();
         }
 

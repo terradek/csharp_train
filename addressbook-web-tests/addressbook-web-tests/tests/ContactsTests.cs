@@ -145,15 +145,34 @@ namespace AddressbookWebTests
             app.Auth.Logout();
         }
 
-        /*        [Test]
-                public void ContactAddingToGroupTest()
-                {
-                    app.Navigator.GoToBaseUrl();
-                    app.Auth.Login(new AccountData("admin", "secret"));
-                    app.Contacts.EditContact(1);
-                    app.Contacts.DeleteContact(); //click Update button
-                    app.Navigator.GoToHome();
-                    app.Auth.Logout();
-                }*/
-    }
+        [Test]
+        public void ContactComparingTest() {
+            app.Navigator.GoToBaseUrl();
+            app.Auth.Login(new AccountData("admin", "secret"));
+
+            ContactsData contactFromHomePage = app.Contacts.GetContactDataFromHomePage(12);
+            app.Contacts.GoToContactEditing(12);
+            ContactsData contactFromForm = app.Contacts.GetContactDataFromEditForm();
+            Assert.AreEqual(contactFromForm, contactFromHomePage);
+            Assert.AreEqual(contactFromForm.Address, contactFromHomePage.Address);
+            Assert.AreEqual(contactFromForm.AllPhones, contactFromHomePage.AllPhones);
+
+            app.Navigator.GoToHome();
+            app.Auth.Logout();
+        }
+
+
+
+
+            /*        [Test]
+                    public void ContactAddingToGroupTest()
+                    {
+                        app.Navigator.GoToBaseUrl();
+                        app.Auth.Login(new AccountData("admin", "secret"));
+                        app.Contacts.EditContact(1);
+                        app.Contacts.DeleteContact(); //click Update button
+                        app.Navigator.GoToHome();
+                        app.Auth.Logout();
+                    }*/
+        }
 }
