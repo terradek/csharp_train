@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using OpenQA.Selenium;
@@ -114,7 +115,7 @@ namespace AddressbookWebTests
 
         public string GetContactDataFromDetails() {
             string allContactData = driver.FindElement(By.XPath("//div[@id='content']")).Text;
-            string allDataFiltered = System.Text.RegularExpressions.Regex.Replace(allContactData, @"[^\d|\w]", "");
+            string allDataFiltered = Regex.Replace(allContactData, @"[^\d|\w]", "");
             return allDataFiltered;
         }
 

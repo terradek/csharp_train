@@ -46,14 +46,8 @@ namespace AddressbookWebTests
         public string AllPhones 
         { 
             get 
-            { 
-                if (allPhones !=null) 
-                {
-                    return allPhones;
-                } else 
-                {
-                    return Regex.Replace(HomePhone+MobilePhone+WorkPhone, @"[^\d]", "");
-                }
+            {
+                return allPhones != null ? allPhones : Regex.Replace(HomePhone + MobilePhone + WorkPhone, @"[^\d]", "");
             } 
             set 
             {

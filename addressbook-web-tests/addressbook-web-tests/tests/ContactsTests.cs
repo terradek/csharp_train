@@ -164,7 +164,10 @@ namespace AddressbookWebTests
             app.Contacts.GoToContactDetails(accountNumber);
             string contactFromDetails = app.Contacts.GetContactDataFromDetails();
             string firstPart = Regex.Replace(contactFromForm.Firstname + contactFromForm.MiddleName + contactFromForm.LastName + contactFromForm.Address, @"[^\w|\d]", "");
-            string secondPart = "H" + Regex.Replace(contactFromForm.HomePhone, @"[^\d]", "") + "M" + Regex.Replace(contactFromForm.MobilePhone, @"[^\d]", "") + "W" + Regex.Replace(contactFromForm.WorkPhone, @"[^\d]", "");
+            
+            string secondPart = (!string.IsNullOrEmpty(contactFromForm.HomePhone) ? "H" : string.Empty) + Regex.Replace(contactFromForm.HomePhone, @"[^\d]", string.Empty)
+               + (!string.IsNullOrEmpty(contactFromForm.MobilePhone) ? "M" : string.Empty) + Regex.Replace(contactFromForm.MobilePhone, @"[^\d]", string.Empty) 
+                + (!string.IsNullOrEmpty(contactFromForm.WorkPhone) ? "W" : string.Empty) + Regex.Replace(contactFromForm.WorkPhone, @"[^\d]", string.Empty);
             Assert.AreEqual(contactFromDetails, firstPart + secondPart);
 
             app.Navigator.GoToHome();
