@@ -147,15 +147,25 @@ namespace AddressbookWebTests
 
         [Test]
         public void ContactComparingTest() {
+            int accountNumber = 0;
             app.Navigator.GoToBaseUrl();
             app.Auth.Login(new AccountData("admin", "secret"));
 
-            ContactsData contactFromHomePage = app.Contacts.GetContactDataFromHomePage(12);
-            app.Contacts.GoToContactEditing(12);
+            ContactsData contactFromHomePage = app.Contacts.GetContactDataFromHomePage(accountNumber);
+            
+
+            app.Contacts.GoToContactEditing(accountNumber);
             ContactsData contactFromForm = app.Contacts.GetContactDataFromEditForm();
             Assert.AreEqual(contactFromForm, contactFromHomePage);
             Assert.AreEqual(contactFromForm.Address, contactFromHomePage.Address);
             Assert.AreEqual(contactFromForm.AllPhones, contactFromHomePage.AllPhones);
+
+            app.Navigator.GoToBaseUrl();
+            app.Contacts.GoToContactDetails(accountNumber);
+            string contactFromDetails = app.Contacts.GetContactDataFromDetails();
+            string firstPart = Regex.Replace(contactFromForm.Firstname + contactFromForm.MiddleName + contactFromForm.LastName + contactFromForm.Address, @"[^\w|\d]", "");
+            string secondPart = "H" + Regex.Replace(contactFromForm.HomePhone, @"[^\d]", "") + "M" + Regex.Replace(contactFromForm.MobilePhone, @"[^\d]", "") + "W" + Regex.Replace(contactFromForm.WorkPhone, @"[^\d]", "");
+            Assert.AreEqual(contactFromDetails, firstPart + secondPart);
 
             app.Navigator.GoToHome();
             app.Auth.Logout();

@@ -111,6 +111,13 @@ namespace AddressbookWebTests
             driver.FindElement(By.XPath("//input[@name='id']/preceding-sibling::input[@type='submit']")).Click();
             new WebDriverWait(driver, TimeSpan.FromSeconds(40)).Until(ExpectedConditions.UrlToBe("http://localhost/addressbook/"));
         }
+
+        public string GetContactDataFromDetails() {
+            string allContactData = driver.FindElement(By.XPath("//div[@id='content']")).Text;
+            string allDataFiltered = System.Text.RegularExpressions.Regex.Replace(allContactData, @"[^\d|\w]", "");
+            return allDataFiltered;
+        }
+
         public void UpdateContact()
         {
             driver.FindElement(By.XPath("//input[@value='Update']")).Click();
@@ -144,6 +151,17 @@ namespace AddressbookWebTests
                     .Until(driver => GetContactRow(i)[7]).Click();
             } catch (Exception ex)  { throw; }
         }
+        public void GoToContactDetails(int i) 
+        {
+            try {
+/*                var result = new WebDriverWait(driver, TimeSpan.FromSeconds(40))
+                    .Until(driver => driver.FindElement(By.XPath($"//img[@title='Details'][{i+1}]")));
+                result.Click();*/
+                //OR:
+                new WebDriverWait(driver, TimeSpan.FromSeconds(40))
+                    .Until(driver => GetContactRow(i)[6]).Click();
+            } catch (Exception ex)  { throw; }
+        }
         public void DeleteContact(bool wait=true)
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
@@ -172,7 +190,6 @@ namespace AddressbookWebTests
             string homePhone = driver.FindElement(By.Name("home")).GetAttribute("value");
             string mobilePhone = driver.FindElement(By.Name("mobile")).GetAttribute("value");
             string workPhone = driver.FindElement(By.Name("work")).GetAttribute("value");
-
             return new ContactsData(firstName, lastName, middleName) {
                 Address = address,
                 HomePhone = homePhone,
